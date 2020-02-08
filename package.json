@@ -1,0 +1,47 @@
+{
+    "name": "firebase-webapp",
+    "description": "Firebase Seed App",
+    "version": "1.0.0",
+    "main": "dist/server/index.js",
+    "license": "MIT",
+    "scripts": {
+        "build:client": "next build src/client",
+        "build:server": "babel src/server --out-dir dist/server --source-maps",
+        "build": "npm-run-all build:client build:server",
+        "watch:client": "next src/client",
+        "watch:server": "babel src/server --out-dir dist/server --source-maps --watch",
+        "watch": "npm-run-all  watch:client watch:server",
+        "serve": "cross-env NODE_ENV=production firebase serve --only functions,hosting",
+        "deploy": "firebase deploy --only functions,hosting",
+        "dev": "npm-run-all build serve",
+        "next-dev": "next dev src/client",
+        "clean": "rm -rf dist"
+    },
+    "engines": {
+        "node": "10"
+    },
+    "dependencies": {
+        "@emotion/core": "^10.0.22",
+        "@emotion/styled": "^10.0.23",
+        "@zeit/next-css": "^1.0.1",
+        "body-parser": "^1.19.0",
+        "bootstrap": "^4.3.1",
+        "emotion": "^10.0.23",
+        "express": "^4.17.1",
+        "firebase-admin": "^8.3.0",
+        "firebase-functions": "^3.2.0",
+        "next": "9.0.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.12.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.5.5",
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "cross-env": "^5.2.0",
+        "firebase-functions-test": "^0.1.6",
+        "firebase-tools": "^7.2.1",
+        "npm-run-all": "^4.1.5",
+        "rimraf": "^2.6.3"
+    }
+}

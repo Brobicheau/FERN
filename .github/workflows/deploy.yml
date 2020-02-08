@@ -1,0 +1,29 @@
+name: Deploy Firebase App
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [12.x]
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: npm install, build, and test
+              run: |
+                  npm ci
+                  npm run build --if-present
+            - name: Deploy to Firebase
+              uses: w9jds/firebase-action@master
+              with:
+                  args: deploy --only functions,hosting
+              env:
+                  CI: true
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
